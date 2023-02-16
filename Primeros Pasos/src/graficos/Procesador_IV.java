@@ -40,7 +40,7 @@ class LaminaProcesador_IV extends JPanel{
 		cursiva.addActionListener(new StyledEditorKit.ItalicAction());
 		estilo.add(negrita);estilo.add(cursiva);
 		//configura_menu("Negrita","estilo","",Font.BOLD,1,"bin/graficos/esfera.jpg");
-		//configura_menu("Cursiva","estilo","",Font.ITALIC,1,"bin/graficos/esfera.jpg");	
+		//configura_menu("Cursiva","estilo","",Font.ITALIC,1,"bin/graficos/esfera.jpg")	
 		//-------------Radio Button----------------
 		ButtonGroup tamagno_letra=new ButtonGroup();
 		JRadioButtonMenuItem doce=new JRadioButtonMenuItem("12");
