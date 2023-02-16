@@ -25,7 +25,7 @@ class LaminaProcesador_III extends JPanel{
 		setLayout(new BorderLayout());
 		JPanel laminamenu=new JPanel();
 		JMenuBar mibarra=new JMenuBar();
-		//-----------------------------------		
+		//----------GERMAN----------------		
 		fuente=new JMenu("Fuente");
 		estilo=new JMenu("Estilo");
 		tamagno=new JMenu("Tamaño");
