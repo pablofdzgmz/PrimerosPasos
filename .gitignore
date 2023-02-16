@@ -30,3 +30,7 @@ sonarlint/
 
 # Output directory
 out/
+
+# Log directories and files
+logs/
+*.log
