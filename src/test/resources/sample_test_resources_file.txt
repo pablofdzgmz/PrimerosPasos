@@ -1,0 +1,2 @@
+¡Pablo!
+This is a sample of a test resources file just to show you how test methods are implemented and how to get to their resources files.
