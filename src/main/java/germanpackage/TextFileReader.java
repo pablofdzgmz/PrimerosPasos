@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.stream.Stream;
 
-public class Application {
+public class TextFileReader {
 
     public String getTextFileContent(String filePath) {
         InputStream inputStream = this.getClass()
@@ -21,9 +21,7 @@ public class Application {
         return result.toString();
     }
 
-    public static void main(String[] args) {
-        Application app = new Application();
-        String message = app.getTextFileContent("sample_resources_file.txt");
-        System.out.println(message);
+    public String getResourcesFileSampleContent() {
+        return this.getTextFileContent("sample_resources_file.txt");
     }
 }

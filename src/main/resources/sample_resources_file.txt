@@ -1,2 +1,3 @@
 ¡Pablo!
-This is an example of a resources file just to show you that non-Java files should be placed down this directory.
+This is an example of a resources file under the standard Resources root directory.
+It's here just to show you that non-Java files should be placed down this directory.
