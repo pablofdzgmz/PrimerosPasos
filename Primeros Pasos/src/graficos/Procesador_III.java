@@ -32,7 +32,7 @@ class LaminaProcesador_III extends JPanel{
 		configura_menu("Arial","fuente","Arial",9,10,"bin/graficos/esfera.jpg");
 		configura_menu("Courier","fuente","Courier",9,10,"");
 		configura_menu("Verdana","fuente","Verdana",9,10,"");
-		//------------------------------------	
+		//---------PABLO---------------------	
 		configura_menu("Negrita","estilo","",Font.BOLD,1,"bin/graficos/esfera.jpg");
 		configura_menu("Cursiva","estilo","",Font.ITALIC,1,"bin/graficos/esfera.jpg");	
 		//------------------------------------
