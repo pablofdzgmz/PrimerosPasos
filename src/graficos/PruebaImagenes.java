@@ -28,7 +28,7 @@ class MarcoImagen extends JFrame{
 class LaminaConImagen extends JPanel{
 	
 	public LaminaConImagen() {
-		File miimagen=new File("src/main.java.graficos/esfera.jpg");
+		File miimagen=new File("src/graficos/esfera.jpg");
 		try {
 		imagen=ImageIO.read(miimagen);
 		}
