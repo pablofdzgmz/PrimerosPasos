@@ -9,11 +9,14 @@ public class Ejercicio2 {
 		do {
 			participantes++;
 			pista-=8.70;
-			if(participantes%3==0) {
+			if(participantes%6==0) {
 				jueces++;
 				pista-=8.70/2;
 			}
-		}while(pista>8.70);
+			if(pista<=(8.70*4)+(8.70/2) && participantes%2==0) {
+				break;
+			}
+		}while(pista>=(8.70*2));
 		System.out.print("Podran concursar "+participantes+" personas.Habra "
 		+jueces+" jueces en la pista. Quedaran ");
 		System.out.printf("%1.2f", pista);

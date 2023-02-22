@@ -9,22 +9,21 @@ public class Ejercicio3 {
 	public static void main(String[] args) {
 		
 	}
-
-}
-
-class animal{
-	public void animal(String nombre, char sexo, int anioNacimiento, 
+	class animal{
+		public void animal(String nombre, char sexo, int anioNacimiento, 
 					   boolean vertebrado) {
 		
+		}
 	}
-}
-class Insecto extends animal{
-	public Insecto(boolean volador, int numPatas) {
+	class Insecto extends animal{
+		public Insecto(boolean volador, int numPatas) {
 		
+		}
 	}
-}
-class Pez extends animal{
-	public Pez() {
+	class Pez extends animal{
+		public Pez() {
 		
+		}
 	}
 }
+
