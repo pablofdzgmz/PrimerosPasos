@@ -11,7 +11,11 @@ public class Entrada_datos {
 		Scanner entrada=new Scanner(System.in);
 		int decision=entrada.nextInt();
 		if(decision==1) {
-			pedirDatos();
+			try {
+				pedirDatos();
+			}catch(InputMismatchException e) {
+				System.out.println("¡¡ Que has introducido en la edad !!");
+			}
 		}else {
 			System.out.println("Adios");
 			System.exit(0);
@@ -19,8 +23,8 @@ public class Entrada_datos {
 		entrada.close();
 	}
 	static void pedirDatos() throws InputMismatchException{
-		try{
-			Scanner entrada=new Scanner(System.in);
+		//try{
+		Scanner entrada=new Scanner(System.in);
 		System.out.println("Introduce tu nombre, por favor");
 		String nombre_usuario=entrada.nextLine();
 		System.out.println("Introduce edad, por favor");
@@ -28,9 +32,9 @@ public class Entrada_datos {
 		System.out.println("Hola " +nombre_usuario+ "." 
 				+ " El año que viene tendras " +(edad+1)+ " años");
 		entrada.close();	
-		}catch(Exception e) {
-			System.out.println("¡¡ Que has introducido en la edad !!");
-		}
+		//}catch(Exception e) {
+			//System.out.println("¡¡ Que has introducido en la edad !!");
+		//}
 		System.out.println("Hemos terminado");
 	}
 
