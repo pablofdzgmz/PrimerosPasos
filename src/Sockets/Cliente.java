@@ -1,7 +1,8 @@
 package Sockets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.*;
+import java.net.*;
 import javax.swing.*;
 
 public class Cliente {
@@ -35,7 +36,18 @@ class LaminaMarcoCliente extends JPanel{
 	private class EnviaTexto implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			
+			try {
+				Socket misocket=new Socket("192.168.0.12",9999);
+				DataOutputStream flujo_salida=new DataOutputStream(misocket.getOutputStream());
+				flujo_salida.writeUTF(campo1.getText());
+				flujo_salida.close();
+			} catch (UnknownHostException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				System.out.println(e1.getMessage());
+			}
 		}
 		
 	}
