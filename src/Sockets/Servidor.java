@@ -1,6 +1,7 @@
 package Sockets;
 import javax.swing.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.awt.*;
 import java.io.IOException;
 import java.io.*;
@@ -32,6 +33,7 @@ class MarcoServidor extends JFrame implements Runnable{
 			ServerSocket servidor=new ServerSocket(9999);
 			String nick, ip, mensaje;
 			PaqueteEnvio paquete_recibido;
+			ArrayList <String> listaIp=new ArrayList<String>();
 			while(true) {
 				Socket misocket=servidor.accept();
 				ObjectInputStream paquete_datos=new ObjectInputStream(misocket.getInputStream());
@@ -42,13 +44,31 @@ class MarcoServidor extends JFrame implements Runnable{
 				/*DataInputStream flujo_entrada=new DataInputStream(misocket.getInputStream());
 				String mensaje_texto=flujo_entrada.readUTF();
 				areatexto.append("\n" +mensaje_texto);*/
-				areatexto.append("\n" +nick+ ": "+mensaje+" para "+ip);
-				Socket enviaDestinatario=new Socket(ip,9090);
-				ObjectOutputStream paqueteReenvio=new ObjectOutputStream(enviaDestinatario.getOutputStream());
-				paqueteReenvio.writeObject(paquete_recibido);
-				paqueteReenvio.close();
-				enviaDestinatario.close();
-				misocket.close();
+				if(!mensaje.equals(" online")) {
+					areatexto.append("\n" +nick+ ": "+mensaje+" para "+ip);
+					Socket enviaDestinatario=new Socket(ip,9090);
+					ObjectOutputStream paqueteReenvio=new ObjectOutputStream(enviaDestinatario.getOutputStream());
+					paqueteReenvio.writeObject(paquete_recibido);
+					paqueteReenvio.close();
+					enviaDestinatario.close();
+					misocket.close();
+				}else {
+					//-------------- DETECTA ONLINE ------------------
+					InetAddress localizacion=misocket.getInetAddress();
+					String IpRemota=localizacion.getHostAddress();
+					System.out.println("Online "+IpRemota);
+					listaIp.add(IpRemota);
+					paquete_recibido.setIps(listaIp);
+				for(String z: listaIp) {	
+					Socket enviaDestinatario=new Socket(z,9090);
+					ObjectOutputStream paqueteReenvio=new ObjectOutputStream(enviaDestinatario.getOutputStream());
+					paqueteReenvio.writeObject(paquete_recibido);
+					paqueteReenvio.close();
+					enviaDestinatario.close();
+					misocket.close();
+					}
+					//------------------------------------------------
+				}
 			}
 		} catch (IOException | ClassNotFoundException e) {	
 			e.printStackTrace();

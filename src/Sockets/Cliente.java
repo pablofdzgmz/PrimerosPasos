@@ -1,8 +1,11 @@
 package Sockets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class Cliente {
@@ -19,17 +22,40 @@ class MarcoCliente extends JFrame{
 		LaminaMarcoCliente milamina=new LaminaMarcoCliente();
 		add(milamina);
 		setVisible(true);
+		addWindowListener(new EnvioOnline());
+	}
+}
+//-------------------- ENVIO SEÑAL ONLINE-------------------------
+class EnvioOnline extends WindowAdapter{
+	public void windowOpened(WindowEvent e) {
+		try {
+			Socket misocket=new Socket("192,168.0.12",9999);//ip servidor
+			PaqueteEnvio datos=new PaqueteEnvio();
+			datos.setMensaje("Online");
+			ObjectOutputStream paquete_datos=new ObjectOutputStream(misocket.getOutputStream());
+			paquete_datos.writeObject(datos);
+			misocket.close();
+		}catch(Exception e2) {}
 	}
 }
 
 class LaminaMarcoCliente extends JPanel implements Runnable{
 	public LaminaMarcoCliente() {
-		nick=new JTextField(5);
+		String nick_usuario=JOptionPane.showInputDialog("Nick: ");
+		JLabel n_nick=new JLabel("Nick: ");
+		add(n_nick);
+		nick=new JLabel();
+		nick.setText(nick_usuario);
 		add(nick);
-		JLabel texto=new JLabel("CHAT");
+		JLabel texto=new JLabel("Online: ");
 		add(texto);
-		ip=new JTextField(8);
-		add(ip);
+		ip=new JComboBox();
+		/*ip.addItem("Usuario 1");
+		ip.addItem("Usuario 2");
+		ip.addItem("Usuario 3");*/
+		//ip.addItem("192.168.0.197");//agregamos clientes
+		//ip.addItem("192.168.0.198");
+		//add(ip);
 		campochat=new JTextArea(12,20);
 		add(campochat);
 		campo1=new JTextField(20);
@@ -53,7 +79,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 				flujo_salida.close();*/
 				PaqueteEnvio datos=new PaqueteEnvio();
 				datos.setNick(nick.getText());
-				datos.setIp(ip.getText());
+				datos.setIp(ip.getSelectedItem().toString());
 				datos.setMensaje(campo1.getText());
 				ObjectOutputStream paquete_datos=new ObjectOutputStream(misocket.getOutputStream());
 				paquete_datos.writeObject(datos);
@@ -68,7 +94,9 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 		}
 		
 	}
-	private JTextField campo1, nick, ip;
+	private JTextField campo1;
+	private JComboBox ip;
+	private JLabel nick;
 	private JTextArea campochat;
 	private JButton miboton;
 	
@@ -81,7 +109,17 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 				cliente=servidor_cliente.accept();
 				ObjectInputStream flujoentrada=new ObjectInputStream(cliente.getInputStream());
 				paqueteRecibido=(PaqueteEnvio) flujoentrada.readObject();
-				campochat.append("\n" +paqueteRecibido.getNick()+": "+paqueteRecibido.getMensaje());
+				if(paqueteRecibido.getMensaje().equals(" online")) {;
+					campochat.append("\n" +paqueteRecibido.getNick()+": "+paqueteRecibido.getMensaje());
+				}else{
+					//campochat.append("\n" +paqueteRecibido.getIps());
+					ArrayList <String> IpsMenu=new ArrayList<String>();
+					IpsMenu=paqueteRecibido.getIps();
+					ip.removeAllItems();
+					for(String z:IpsMenu) {
+						ip.addItem(z);
+					}
+				}
 			}
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -92,6 +130,14 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 
 class PaqueteEnvio implements Serializable{
 	private String nick, ip, mensaje;
+	private ArrayList<String> Ips;
+	public ArrayList<String> getIps() {
+		return Ips;
+	}
+
+	public void setIps(ArrayList<String> ips) {
+		Ips = ips;
+	}
 
 	public String getNick() {
 		return nick;
